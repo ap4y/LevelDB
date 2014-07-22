@@ -28,7 +28,7 @@
 
 NSString * const LevelDBErrorDomain = @"LevelDBErrorDomain";
 
-- (instancetype)initWithDBUrl:(NSURL *)dbUrl {
+- (instancetype)initWithDBURL:(NSURL *)dbURL {
     self = [super init];
     if (!self) return nil;
 
@@ -36,7 +36,7 @@ NSString * const LevelDBErrorDomain = @"LevelDBErrorDomain";
     leveldb::Status status;
 
     options.create_if_missing = true;
-    status = leveldb::DB::Open(options, [dbUrl.absoluteString UTF8String], &_db);
+    status = leveldb::DB::Open(options, [dbURL.path UTF8String], &_db);
 
     if (!status.ok()) {
         [NSException raise:NSInternalInconsistencyException
@@ -56,10 +56,10 @@ NSString * const LevelDBErrorDomain = @"LevelDBErrorDomain";
     _db = NULL;
 }
 
-+ (BOOL)destroyDBWithDBUrl:(NSURL *)dbUrl error:(NSError **)error {
++ (BOOL)destroyDBWithDBURL:(NSURL *)dbURL error:(NSError **)error {
     leveldb::Status status;
 
-    status = leveldb::DestroyDB([dbUrl.absoluteString UTF8String], leveldb::Options());
+    status = leveldb::DestroyDB([dbURL.path UTF8String], leveldb::Options());
 
     if (error && !status.ok()) { *error = errorFromStatus(status); }
     return status.ok();

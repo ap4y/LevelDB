@@ -3,15 +3,15 @@ import LevelDB
 
 class LevelDBTest: XCTestCase {
     var subject: LevelDB!
-    let dbUrl = NSURL.URLWithString("/tmp/testDB")
+    let dbURL = NSURL.URLWithString("/tmp/testDB")
 
     override func setUp() {
-        subject = LevelDB(DBUrl: dbUrl)
+        subject = LevelDB(DBURL: dbURL)
     }
 
     override func tearDown() {
         if subject { subject.closeDB() }
-        LevelDB.destroyDBWithDBUrl(dbUrl, error: nil)
+        LevelDB.destroyDBWithDBURL(dbURL, error: nil)
     }
 
     func testPut() {

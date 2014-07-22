@@ -21,10 +21,10 @@ FOUNDATION_EXPORT const unsigned char LevelDBVersionString[];
 @class WriteBatch, DatabaseEnumerator;
 @interface LevelDB: NSObject
 
-- (instancetype)initWithDBUrl:(NSURL *)dbUrl;
+- (instancetype)initWithDBURL:(NSURL *)dbUrl;
 - (void)closeDB;
 
-+ (BOOL)destroyDBWithDBUrl:(NSURL *)dbUrl error:(NSError **)error;
++ (BOOL)destroyDBWithDBURL:(NSURL *)dbUrl error:(NSError **)error;
 
 - (BOOL)putKey:(NSString *)key value:(NSString *)value options:(WriteOptions)options error:(NSError **)error;
 - (NSString *)getKey:(NSString *)key options:(ReadOptions)options error:(NSError **)error;
