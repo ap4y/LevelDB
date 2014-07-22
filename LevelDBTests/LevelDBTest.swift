@@ -40,15 +40,17 @@ class LevelDBTest: XCTestCase {
         XCTAssert(error == nil, "Error should be nil: \(error)")
     }
 
-    func testWrite() {
-        let error = subject.writeBatch {
-            writeBatch in
+    func testWriteBatch() {
+        var error = subject.writeBatch { writeBatch in
             writeBatch.putKey("foo", value: "bar")
             writeBatch.putKey("bar", value: "baz")
             writeBatch.deleteKey("foo")
         }
-
         XCTAssert(error == nil, "Error should be nil: \(error)")
+
+        let result = subject.getKey("bar", error: &error)
+        XCTAssert(error == nil, "Error should be nil: \(error)")
+        XCTAssert(result == "baz", "Invalid value")
     }
 
     func testGenerator() {

@@ -11,13 +11,13 @@
 #import "leveldb/write_batch.h"
 
 @interface WriteBatch () {
-    leveldb::WriteBatch _wb;
+    leveldb::WriteBatch *_wb;
 }
 @end
 
 @implementation WriteBatch
 
-- (instancetype)initWithDBWriteBatch:(leveldb::WriteBatch)writeBatch {
+- (instancetype)initWithDBWriteBatch:(leveldb::WriteBatch *)writeBatch {
     self = [super init];
     if (!self) return nil;
 
@@ -27,15 +27,15 @@
 }
 
 - (void)putKey:(NSString *)key value:(NSString *)value {
-    _wb.Put(sliceFromString(key), sliceFromString(value));
+    _wb->Put(sliceFromString(key), sliceFromString(value));
 }
 
 - (void)deleteKey:(NSString *)key {
-    _wb.Delete(sliceFromString(key));
+    _wb->Delete(sliceFromString(key));
 }
 
 - (void)clearAll {
-    _wb.Clear();
+    _wb->Clear();
 }
 
 @end

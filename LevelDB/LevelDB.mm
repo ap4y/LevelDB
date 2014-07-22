@@ -17,7 +17,7 @@
 @end
 
 @interface WriteBatch ()
-- (instancetype)initWithDBWriteBatch:(leveldb::WriteBatch)writeBatch;
+- (instancetype)initWithDBWriteBatch:(leveldb::WriteBatch *)writeBatch;
 @end
 
 @interface DatabaseEnumerator()
@@ -101,7 +101,7 @@ NSString * const LevelDBErrorDomain = @"LevelDBErrorDomain";
     leveldb::Status status;
     WriteBatch *writeBatch;
 
-    writeBatch = [[WriteBatch alloc] initWithDBWriteBatch:wb];
+    writeBatch = [[WriteBatch alloc] initWithDBWriteBatch:&wb];
     operationsBlock(writeBatch);
 
     status = _db->Write(adaptWriteOptions(options), &wb);
