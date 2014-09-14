@@ -11,7 +11,7 @@ import Foundation
 public let defaultWriteOptions = WriteOptions(sync: false);
 public let defaultReadOptions  = ReadOptions(verifyChecksums: false, fillCache: true);
 
-extension LevelDB: Sequence {
+extension LevelDB: SequenceType {
 
     public func putKey(key: String, value: String, error: NSErrorPointer) -> Bool {
         return putKey(key, value: value, options: defaultWriteOptions, error: error);
@@ -37,7 +37,7 @@ extension LevelDB: Sequence {
     }
 }
 
-extension DatabaseEnumerator: Generator {
+extension DatabaseEnumerator: GeneratorType {
 
     public func next() -> (String, String)? {
         if let dict = nextObject() as? [String: String] {

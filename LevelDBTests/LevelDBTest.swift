@@ -10,7 +10,7 @@ class LevelDBTest: XCTestCase {
     }
 
     override func tearDown() {
-        if subject { subject.closeDB() }
+        if subject != nil { subject.closeDB() }
         LevelDB.destroyDBWithDBURL(dbURL, error: nil)
     }
 
